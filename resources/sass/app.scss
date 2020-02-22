@@ -6,3 +6,29 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+
+
+
+//  Menu
+.b-menu {
+    display: flex;
+    justify-content: center;
+    background: #7284ff;
+    &__item {
+        padding: 20px 40px;
+        background: #5975ff;
+        color: white;
+        font-weight: 600;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        border: 1px solid #5100ef;
+    }
+}
+
+h1 {
+    text-align: center;
+    color: #c2c0c0;
+    font-weight: 600;
+    margin-top: 50px;
+}
