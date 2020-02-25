@@ -2,39 +2,32 @@
 
 namespace App\Http\Controllers;
 
-use App\News;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class NewsController extends Controller
 {
     public function showCategories()
     {
-        return view('news.category', ['newsCategories' => News::$categories]);
+        $newsCategories = DB::select("SELECT * FROM category");
+        return view('news.category', ['newsCategories' => $newsCategories]);
     }
 
-    public function showList($category)
+    public function showList($categoryCode)
     {
-        $categoryInfo = $this->categoryInfo($category);
-        return view('news.list', ['newsList' => News::$news, 'categoryInfo' => $categoryInfo]);
+        $category = DB::select("SELECT * FROM category WHERE category = :category", [':category' => $categoryCode])[0];
+        $newsList = DB::select("SELECT * FROM news WHERE category_id = :category_id", [':category_id' => $category->id]);
+
+        return view('news.list', ['newsList' => $newsList, 'category' => $category]);
     }
 
-    public function showOne($category, $id)
+    public function showOne($categoryCode, $id)
     {
-        $categoryInfo = $this->categoryInfo($category);
-        $news = News::$news;
-        if (array_key_exists($id, $news) && ($news[$id]['category_id'] === $categoryInfo['id']))
-            return view('news.one', ['news' => News::$news[$id], 'category' => $category]);
+        $category = DB::select("SELECT * FROM category WHERE category = :category", [':category' => $categoryCode])[0];
+        $news = DB::select("SELECT * FROM news WHERE id = :id AND category_id = :category_id", [':id' => $id, ':category_id' => $category->id])[0];
+        if ($news)
+            return view('news.one', ['news' => $news]);
         else
             return redirect(route('news.categories'));
-    }
-
-    public function categoryInfo($category)
-    {
-        foreach (News::$categories as $item) {
-            if ($item['category'] === $category) {
-                return ['id' => $item['id'], 'name' => $item['name'], 'category' => $item['category']];
-            }
-        }
-        return false;
     }
 }

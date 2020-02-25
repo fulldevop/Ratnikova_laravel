@@ -10907,3 +10907,12 @@ h1 {
   margin-top: 50px;
 }
 
+.list-news {
+  display: flex;
+  padding: 10px;
+}
+
+.list-img {
+  margin-right: 10px;
+}
+

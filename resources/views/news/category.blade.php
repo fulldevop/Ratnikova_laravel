@@ -11,7 +11,7 @@
             <h2>Категории</h2>
             @forelse($newsCategories as $category)
                 <div class="col-md-12">
-                    <a href="{{ route('news.category', $category['category']) }}">{{ $category['name'] }}</a>
+                    <a href="{{ route('news.category', $category->category) }}">{{ $category->name }}</a>
                 </div>
             @empty
                 <p>Нет категорий</p>

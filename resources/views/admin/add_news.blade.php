@@ -20,7 +20,7 @@
                         <select name="category" class="form-control" id="newsCategory">
                             <?php //TODO ?>
                             @forelse($categories as $item)
-                                <option @if ($item['id'] == old('category')) selected @endif value="{{ $item['id'] }}">{{ $item['name'] }}</option>
+                                <option @if ($item->id == old('category')) selected @endif value="{{ $item->id }}">{{ $item->name }}</option>
                             @empty
                                 <h2>Нет категории</h2>
                             @endforelse

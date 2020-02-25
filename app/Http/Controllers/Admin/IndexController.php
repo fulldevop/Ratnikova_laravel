@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\News;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class IndexController extends Controller
 {
@@ -16,11 +17,19 @@ class IndexController extends Controller
 
     public function addNews(Request $request)
     {
-        return view('admin.add_news', ['categories' => News::$categories]);
+        if ($request->isMethod('post')) {
+//            $request->flash();
+
+            News::addIntoDb($request->all());
+
+            return redirect()->route('admin.add_news');
+        }
+        $categories = DB::select("SELECT * FROM category");
+        return view('admin.add_news', ['categories' => $categories]);
     }
 
-    public function addNews2()
+/*    public function addNews2()
     {
-        return view('admin.add_news_2', ['categories' => News::$categories]);
-    }
+        return view('admin.add_news_2', ['categories' => old::$categories]);
+    }*/
 }

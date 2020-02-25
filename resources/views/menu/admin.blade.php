@@ -16,9 +16,9 @@
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('admin.add_news') ? 'active' : '' }}" href="{{ route('admin.add_news') }}">Добавить новость</a>
                 </li>
-                <li class="nav-item">
+{{--                <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('admin.add_news_2') ? 'active' : '' }}" href="{{ route('admin.add_news_2') }}">FORM</a>
-                </li>
+                </li>--}}
             </ul>
 
             <!-- Right Side Of Navbar -->
